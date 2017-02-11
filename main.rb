@@ -9,11 +9,15 @@ DATABASE = __dir__+"/database.sqlite"
 bcdice = DiscordBCDiceMaker.new.newBcDice
 bcdice.after_initialize
 
+if(!FileTest.exist?(DATABASE))
+    puts "no database error"
+    exit 1
+end
+
 begin
     db = Sequel.sqlite(DATABASE)[:servers]
 rescue => err
     puts err.message
-    puts "maybe, you had not migration...had you?"
     exit 1
 end
 
