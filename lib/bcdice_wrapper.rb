@@ -15,7 +15,6 @@ end
 
 class DiscordBCDice < BCDice
     attr_reader :systemlist
-
     def after_initialize
       @systemlist = {}
       $allGameTypes.each do |s|
@@ -30,18 +29,14 @@ class DiscordBCDice < BCDice
         @nick_e = nick
     end
 
-    def validSystem?(system)
-        $allGameTypes.include?(system) || $allGameTypes.include?(@systemlist[system])
+    def self.validSystem?(system)
+        $allGameTypes.include?(system) || $allGameTypes.include?(@systemlist[system_name])
     end
 
     def validSystemlist
       @systemlist.map do |system_name, system|
         "#{system_name}: #{system}"
       end
-    end
-
-    def getHelpMessage
-      @diceBot.getHelpMessage
     end
 
     private
