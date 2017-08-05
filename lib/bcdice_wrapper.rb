@@ -18,11 +18,11 @@ class DiscordBCDice < BCDice
 
     def after_initialize
       @systemlist = {}
-      $allGameTypes.each do |s|
-        s = replace_systemName(s)
-        require "diceBot/#{s}.rb"
-        system_name = Module.const_get(s).new.gameName
-        @systemlist[system_name] = s
+      $allGameTypes.each do |sys|
+        sys = replace_systemName(sys)
+        require "diceBot/#{sys}.rb"
+        system_name = Module.const_get(sys).new.gameName
+        @systemlist[sys] = system_name
       end
     end
 
@@ -30,14 +30,35 @@ class DiscordBCDice < BCDice
         @nick_e = nick
     end
 
-    def self.validSystem?(system)
-        $allGameTypes.include?(system) || $allGameTypes.include?(@systemlist[system_name])
+    def validSystem?(system)
+        @systemlist.has_key?(system) || @systemlist.has_value?(system)
     end
 
     def validSystemlist
       @systemlist.map do |system_name, system|
         "#{system_name}: #{system}"
       end
+    end
+
+    def findSystem(name)
+      if(!self.validSystem?(name))
+        raise 'invalid argument'
+      end
+
+      sys = ''
+      sys_name = ''
+      @systemlist.each do |key, value|
+        if(key == name || value == name)
+          sys = key
+          sys_name = value
+          break
+        end
+      end
+      return sys, sys_name
+    end
+
+    def getHelpMessage
+      @diceBot.getHelpMessage
     end
 
     private
