@@ -24,5 +24,6 @@ bot = Discordrb::Bot.new client_id: key[0].to_i, token: key[1]
 manager = CommandManager.new(bot)
 
 manager.add(HelloCommand.new)
+manager.add(SystemlistCommand.new(bcdice))
 
 manager.run
