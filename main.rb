@@ -101,14 +101,6 @@ bot.message(containing: not!("set:")) do |eve|
       system = "DiceBot"
     else
       system = db.first(:server_id => eve.server.id)
-<<<<<<< HEAD
-=======
-      if system.nil?
-        system = "DiceBot"
-      else
-        system = system[:system]
-      end
->>>>>>> 1733bd60abac290049f08a6c966384ff93b6c4b1
     end
     bcdice.setGameByTitle(system)
     bcdice.setMessage(eve.text)
