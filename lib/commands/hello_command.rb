@@ -4,10 +4,8 @@ class HelloCommand
         {content:'こんにちわ'}
     end
 
-    def process
-        Proc.new do |eve|
-            eve.respond "#{eve.user.name}さん、こんにちわ"
-        end
+    def process(eve)
+        eve.respond "#{eve.user.name}さん、こんにちわ"
     end
 
 end

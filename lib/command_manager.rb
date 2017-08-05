@@ -8,7 +8,7 @@ class CommandManager
 
     def add(command)
         @bot.message(command.attribute) do |eve|
-            command.process.call(eve)
+            command.process(eve)
         end
     end
 
