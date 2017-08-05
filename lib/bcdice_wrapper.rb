@@ -15,6 +15,7 @@ end
 
 class DiscordBCDice < BCDice
     attr_reader :systemlist
+
     def after_initialize
       @systemlist = {}
       $allGameTypes.each do |s|

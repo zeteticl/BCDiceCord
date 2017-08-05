@@ -55,11 +55,23 @@ bot.message(with_text: "!systemlist") do |eve|
   eve.user.pm("```#{help_lines_after}```")
 end
 
+bot.message(with_text:"!systemhelp") do |eve|
+  test_get_data = db.first(:server_id => eve.server.id)
+  unless test_get_data.nil?
+    bcdice.setGameByTitle(test_get_data[:system])
+    eve.user.pm("```#{bcdice.getHelpMessage}```")
+  end
+end
+
 # set system event
 bot.message(contains: "set:") do |eve|
   system = (/^set:( *)(.+)/.match(eve.text))[2]
-    unless DiscordBCDice.validSystem?(system)
-        system = "None"
+    unless bcdice.validSystem?(system)
+      system = "None"
+    else
+      unless bcdice.systemlist[system].nil?
+        system = bcdice.systemlist[system]
+      end
     end
 
     if system == "None"
@@ -89,6 +101,14 @@ bot.message(containing: not!("set:")) do |eve|
       system = "DiceBot"
     else
       system = db.first(:server_id => eve.server.id)
+<<<<<<< HEAD
+=======
+      if system.nil?
+        system = "DiceBot"
+      else
+        system = system[:system]
+      end
+>>>>>>> 1733bd60abac290049f08a6c966384ff93b6c4b1
     end
     bcdice.setGameByTitle(system)
     bcdice.setMessage(eve.text)
