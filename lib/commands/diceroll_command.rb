@@ -6,24 +6,20 @@ class DicerollCommand
     end
 
     def attribute
-        {start_with: not!('!')}
+        {start_with: not!('!'), private:false}
     end
 
     def process(eve)
-        if(eve.server.nil?)
-            return
-        end
-
         system = @hash[eve.server.id]
 
         @bcdice.setGameByTitle(system)
         @bcdice.setNick(eve.user.name)
         @bcdice.setMessage(eve.text)
 
-        message, _ = @bcdice.dice_command
+        message, is_secret = @bcdice.dice_command
 
         if(message != '' && message != '1')
-            eve.respond message
+            is_secret ? eve.user.pm(message) : eve.respond(message)
         end
     end
 
