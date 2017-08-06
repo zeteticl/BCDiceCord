@@ -3,10 +3,11 @@ class SetsystemCommand
     def initialize(bcdice, system_store)
         @bcdice = bcdice
         @hash = system_store
+        @attr = /^set:\s*(.+?)$/
     end
 
     def attribute
-        {start_with:"set:"}
+        {start_with:@attr}
     end
 
     def process(eve)
@@ -15,7 +16,7 @@ class SetsystemCommand
             return
         end
 
-        system = (eve.text.match(/^set:\s*(.+?)$/))[1]
+        system = (eve.text.match(@attr))[1]
         system_name = '';
 
         if(!@bcdice.validSystem?(system))
