@@ -41,6 +41,9 @@ class DiscordBCDice < BCDice
     end
 
     def findSystem(name)
+      if(name == 'None')
+        return 'None', 'デフォルト(指定なし)'
+      end
       if(!self.validSystem?(name))
         raise 'invalid argument'
       end
