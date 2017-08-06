@@ -28,5 +28,6 @@ manager.add(SystemlistCommand.new(bcdice))
 manager.add(SetsystemCommand.new(bcdice, system_store))
 manager.add(SystemhelpCommand.new(bcdice, system_store))
 manager.add(ShowsystemCommand.new(bcdice, system_store))
+manager.add(DicerollCommand.new(bcdice, system_store))
 
 manager.run
