@@ -19,12 +19,13 @@ File.open(Dir.pwd + "/token.txt").each_line do |line|
 end
 
 bot = Discordrb::Bot.new client_id: key[0].to_i, token: key[1]
-system_store = Hash.new
+system_store = Hash.new('None')
 
 manager = CommandManager.new(bot)
 
 manager.add(HelloCommand.new)
 manager.add(SystemlistCommand.new(bcdice))
 manager.add(SetsystemCommand.new(bcdice, system_store))
+manager.add(SystemhelpCommand.new(bcdice, system_store))
 
 manager.run
