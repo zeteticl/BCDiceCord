@@ -7,15 +7,10 @@ class SetsystemCommand
     end
 
     def attribute
-        {start_with:@attr}
+        {start_with:@attr, private:false}
     end
 
     def process(eve)
-        # if server is nil(i.e. private message), return function
-        if(eve.server == nil)
-            return
-        end
-
         system = (eve.text.match(@attr))[1]
         system_name = '';
 

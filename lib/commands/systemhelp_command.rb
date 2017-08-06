@@ -6,14 +6,10 @@ class SystemhelpCommand
     end
 
     def attribute
-        {content:'!systemhelp'}
+        {content:'!systemhelp', private:false}
     end
 
     def process(eve)
-        if(eve.server == nil)
-            return
-        end
-
         system = @hash[eve.server.id]
         @bcdice.setGameByTitle(system)
         text = @bcdice.getHelpMessage

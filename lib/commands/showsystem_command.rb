@@ -6,14 +6,10 @@ class ShowsystemCommand
     end
 
     def attribute
-        {content:'system'}
+        {content:'system', private:false}
     end
 
     def process(eve)
-        if(eve.server == nil)
-            return
-        end
-
         system = @hash[eve.server.id]
         _, sys_name = @bcdice.findSystem(system)
         eve.respond sys_name
