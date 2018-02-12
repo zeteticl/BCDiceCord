@@ -19,6 +19,7 @@ class DicerollCommand
         message, is_secret = @bcdice.dice_command
 
         if(message != '' && message != '1')
+            message = "`"+message+"`"
             is_secret ? eve.user.pm(message) : eve.respond(message)
         end
     end
